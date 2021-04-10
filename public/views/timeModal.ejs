@@ -1,4 +1,4 @@
-<div class="modal fade " id="timeModal"  aria-labelledby="exampleModalCenterTitle" style="display: none;"
+<div class="modal fade " tabindex="-1" id="timeModal" aria-labelledby="exampleModalCenterTitle" style="display: none;"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -7,12 +7,12 @@
         </div>
         <div class="modal-body">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            <input type="text" id="modalInput" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="modalSaveBtn" data-bs-dismiss="modal" >Save changes</button>
         </div>
       </div>
     </div>
