@@ -37,6 +37,12 @@
     #editSwitch {
       box-shadow: none;
     }
+
+    .bi {
+      font-size: 1.1rem;
+    }
+
+    
   </style>
 </head>
 
@@ -45,31 +51,32 @@
 
     <div class="px-2">
       <div class="row row-cols-1 row-cols-md-3 g-3">
-        <% daysOfWeek.forEach((day)=>{%>
-          <div class="col">
+        <% daysOfWeek=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]%>
+          <% daysOfWeek.forEach((day)=>{%>
+            <div class="col">
 
-            <div class="card bg-light text-dark shadow-lg rounded border-primary">
-              <div class="card-header text-center  bg-transparent border-success">
-                <h5>
-                  <%= day %>
-                </h5>
-              </div>
-              <div class="card-body p-0">
-                <ul class="list-group list-group-flush ">
-                </ul>
-                <div class="input-group p-0">
-                  <input type="text" class="form-control add-class-input" placeholder="add class"
-                    aria-label="Recipient's username" aria-describedby="button-addon2" required>
-                  <button class="btn btn-outline-secondary border border-secondary  addItemButton" type="button"
-                    onclick="addItems(this.parentNode)">
-                    <i class="bi bi-plus-circle"></i>
-                  </button>
+              <div class="card bg-light text-dark shadow-lg rounded border-primary">
+                <div class="card-header text-center  bg-transparent border-success">
+                  <h5>
+                    <%= day %>
+                  </h5>
+                </div>
+                <div class="card-body p-0">
+                  <ul class="list-group list-group-flush ">
+                  </ul>
+                  <div class="input-group p-0">
+                    <input type="text" class="form-control add-class-input" placeholder="add class name"
+                      aria-label="Recipient's username" aria-describedby="button-addon2" required>
+                    <button class="btn btn-outline-secondary border border-secondary  addItemButton" type="button"
+                      onclick="addItems(this.parentNode)">
+                      <i class="bi bi-plus-circle"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
 
-          </div>
-          <%});%>
+            </div>
+            <%});%>
       </div>
     </div>
 
@@ -89,13 +96,28 @@
             inputElem.value = ""
           }
         }
+
+const deleteLiFunc=(thisElement)=>{
+  const selectedLi = thisElement.parentNode.parentNode
+  const mainUl = thisElement.parentNode.parentNode.parentNode
+  mainUl.removeChild(selectedLi)
+}
+
         //function that runs when the link button is pressed
         const enterLink = (thisElement) => {
           editSwitch = document.getElementById("editSwitch")
           if (editSwitch.checked) {
-            link = prompt("enter the link to class , once the link has been set , it can only be changed by going to editing mode, after setting the link , presing it will take you you to the link inless editing mode is on ")
+
+
+
+
+            link = prompt("enter the link to class , once the link has been set , it can only be changed by going to editing mode, after setting the link , presing it will take you you to the link inless editing mode is on ").trim()
             thisElement.innerText = "visit"
-            if (isUrl(link)) {
+            if (!link.length) {
+              alert("invalid link try again")
+              return
+            }
+            else if (isUrl(link) && !link.length) {
               thisElement.setAttribute("link", link)
             } else {
               thisElement.setAttribute("link", "https://" + link)
@@ -117,14 +139,14 @@
         }
 
         const modalFunc = (initiatorBtn) => {
-          
+
           const modalInput = document.getElementById("modalInput")
           document.getElementById("modalSaveBtn").click = null
           if (modalInput.value.length > 0) {
 
             initiatorBtn.children[0].innerText = " " + modalInput.value.trim()
             //console.log(initiatorBtn)
-            
+
           }
 
         }
@@ -132,8 +154,8 @@
 
         const enterTime = (thisElement) => {
 
-          
-          document.getElementById("modalSaveBtn").addEventListener("click",()=> modalFunc(thisElement),{once:true})
+
+          document.getElementById("modalSaveBtn").addEventListener("click", () => modalFunc(thisElement), { once: true })
           document.getElementById("modalInput").flatpickr({
             enableTime: true,
             noCalendar: true,
@@ -149,10 +171,16 @@
           if (thisElement.checked) {
             let timeAnchors = document.querySelectorAll('.time-element');
             timeAnchors.forEach(element => element.style.pointerEvents = "auto")
+            let deleteAnchors = document.querySelectorAll(".deleteAnchor")
+            deleteAnchors.forEach((element)=>{element.style.visibility = "initial"})
+            //console.log(deleteAnchors)
           }
           else {
             let timeAnchors = document.querySelectorAll('.time-element');
             timeAnchors.forEach(element => element.style.pointerEvents = "none")
+            let deleteAnchors = document.querySelectorAll(".deleteAnchor")
+            deleteAnchors.forEach((element)=>{element.style.visibility = "hidden"})
+            //console.log(deleteAnchors)
           }
         }
 

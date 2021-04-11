@@ -10,18 +10,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
 
-const daysOfWeek = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
+
 
 app.get("/", (req, res) => {
-  res.render("index", { daysOfWeek });
+  res.render("index", );
 });
 
 const PORT = 3000 || process.env.PORT;
