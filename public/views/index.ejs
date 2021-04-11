@@ -41,8 +41,6 @@
     .bi {
       font-size: 1.1rem;
     }
-
-    
   </style>
 </head>
 
@@ -84,6 +82,7 @@
 
       <script defer>
 
+        const select = (element)=> document.querySelector(element)
         //functuon when a new item is to be added
         addItems = (thisElement) => {
           let inputElem = thisElement.parentNode.children[1].children[0]
@@ -97,22 +96,21 @@
           }
         }
 
-const deleteLiFunc=(thisElement)=>{
-  const selectedLi = thisElement.parentNode.parentNode
-  const mainUl = thisElement.parentNode.parentNode.parentNode
-  mainUl.removeChild(selectedLi)
-}
+        const deleteLiFunc = (thisElement) => {
+          const selectedLi = thisElement.parentNode.parentNode
+          const mainUl = thisElement.parentNode.parentNode.parentNode
+          mainUl.removeChild(selectedLi)
+        }
 
         //function that runs when the link button is pressed
         const enterLink = (thisElement) => {
           editSwitch = document.getElementById("editSwitch")
           if (editSwitch.checked) {
-
-
-
-
             link = prompt("enter the link to class , once the link has been set , it can only be changed by going to editing mode, after setting the link , presing it will take you you to the link inless editing mode is on ").trim()
-            thisElement.innerText = "visit"
+            //thisElement.innerText = "visit"
+            thisElement.querySelector("i").classList.remove("bi-link-45deg")
+            thisElement.querySelector("i").classList.add("bi-link")
+            
             if (!link.length) {
               alert("invalid link try again")
               return
@@ -172,14 +170,14 @@ const deleteLiFunc=(thisElement)=>{
             let timeAnchors = document.querySelectorAll('.time-element');
             timeAnchors.forEach(element => element.style.pointerEvents = "auto")
             let deleteAnchors = document.querySelectorAll(".deleteAnchor")
-            deleteAnchors.forEach((element)=>{element.style.visibility = "initial"})
+            deleteAnchors.forEach((element) => { element.style.visibility = "initial" })
             //console.log(deleteAnchors)
           }
           else {
             let timeAnchors = document.querySelectorAll('.time-element');
             timeAnchors.forEach(element => element.style.pointerEvents = "none")
             let deleteAnchors = document.querySelectorAll(".deleteAnchor")
-            deleteAnchors.forEach((element)=>{element.style.visibility = "hidden"})
+            deleteAnchors.forEach((element) => { element.style.visibility = "hidden" })
             //console.log(deleteAnchors)
           }
         }
