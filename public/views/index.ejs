@@ -117,25 +117,28 @@
         }
 
         const modalFunc = (initiatorBtn) => {
+          
           const modalInput = document.getElementById("modalInput")
+          document.getElementById("modalSaveBtn").click = null
           if (modalInput.value.length > 0) {
-            let time = document.createTextNode(" " + modalInput.value.trim())
-            initiatorBtn.children[0].appendChild(time)
+
+            initiatorBtn.children[0].innerText = " " + modalInput.value.trim()
             //console.log(initiatorBtn)
+            
           }
 
         }
 
-        //document.getElementById("timeModal").addEventListener("show.bs.modal", modalFunc(event))
+
         const enterTime = (thisElement) => {
-          //console.log("clicked")
-          // const val = flatpickr(thisElement, {
-          //   enableTime: true,
-          //   noCalendar: true,
-          //   dateFormat: "H:i",
-          //   wrap: true
-          // })
-          document.getElementById("modalSaveBtn").addEventListener("click", () => modalFunc(thisElement))
+
+          
+          document.getElementById("modalSaveBtn").addEventListener("click",()=> modalFunc(thisElement),{once:true})
+          document.getElementById("modalInput").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "h:i:K",
+          })
         }
 
         const modalClose = (event) => {
