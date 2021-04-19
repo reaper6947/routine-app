@@ -6,7 +6,7 @@ const addItems = (thisElement) => {
     newListItem = document.getElementById("sampleListItem").cloneNode(true);
     newListItem.removeAttribute("id");
     newListItem.children[0].innerText = inputElem.value;
-    newListItem.setAttribute("text",inputElem.value)
+    newListItem.setAttribute("text", inputElem.value)
     ulElement = thisElement.parentNode.children[0].appendChild(newListItem);
     inputElem.value = "";
   }
@@ -18,6 +18,13 @@ const deleteLiFunc = (thisElement) => {
   const mainUl = thisElement.closest(".list-group");
   mainUl.removeChild(selectedLi);
 };
+
+
+
+
+
+
+
 
 const saveFunc = () => {
 
@@ -35,24 +42,36 @@ const saveFunc = () => {
   mainLists.forEach((ul) => {
     let arr = [];
     items = ul.querySelectorAll("li");
-    
+
     items.forEach(item => {
       if (item) {
-        
+
         tempItem = new li(
           item.getAttribute("text"),
           item.getAttribute("link"),
           item.getAttribute("time"),
           item.getAttribute("type")
         );
-      arr.push(tempItem)
+        arr.push(tempItem)
       }
     });
-    
-    
-    localStorage.setItem(ul.getAttribute("id"),JSON.stringify(arr))
+
+
+    localStorage.setItem(ul.getAttribute("id"), JSON.stringify(arr))
   });
 };
+
+const targetNode = document.body;
+const saveConfig = {
+  childList: true,
+  attributes: true,
+  subtree: true,
+  characterData: true
+};
+
+const observer = new MutationObserver(saveFunc);
+observer.observe(targetNode, saveConfig);
+
 
 //function that runs when the link button is pressed
 const enterLink = (thisElement) => {
