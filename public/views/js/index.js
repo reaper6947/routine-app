@@ -6,7 +6,7 @@ const addItems = (thisElement) => {
     newListItem = document.getElementById("sampleListItem").cloneNode(true);
     newListItem.removeAttribute("id");
     newListItem.children[0].innerText = inputElem.value;
-    newListItem.setAttribute("text", inputElem.value)
+    newListItem.setAttribute("text", inputElem.value);
     ulElement = thisElement.parentNode.children[0].appendChild(newListItem);
     inputElem.value = "";
   }
@@ -19,15 +19,7 @@ const deleteLiFunc = (thisElement) => {
   mainUl.removeChild(selectedLi);
 };
 
-
-
-
-
-
-
-
 const saveFunc = () => {
-
   class li {
     constructor(text, link, time, type) {
       this.text = text;
@@ -43,21 +35,19 @@ const saveFunc = () => {
     let arr = [];
     items = ul.querySelectorAll("li");
 
-    items.forEach(item => {
+    items.forEach((item) => {
       if (item) {
-
         tempItem = new li(
           item.getAttribute("text"),
           item.getAttribute("link"),
           item.getAttribute("time"),
           item.getAttribute("type")
         );
-        arr.push(tempItem)
+        arr.push(tempItem);
       }
     });
 
-
-    localStorage.setItem(ul.getAttribute("id"), JSON.stringify(arr))
+    localStorage.setItem(ul.getAttribute("id"), JSON.stringify(arr));
   });
 };
 
@@ -66,12 +56,11 @@ const saveConfig = {
   childList: true,
   attributes: true,
   subtree: true,
-  characterData: true
+  characterData: true,
 };
 
 const observer = new MutationObserver(saveFunc);
 observer.observe(targetNode, saveConfig);
-
 
 //function that runs when the link button is pressed
 const enterLink = (thisElement) => {
@@ -149,9 +138,22 @@ const editFunc = (thisElement) => {
 
   //for the time button editing
   if (thisElement.checked) {
+    let counter = 0;
+    sortable = []
+    document.querySelectorAll(".list-group").forEach((ul) => {
+      sortable[counter] = new Sortable(ul, {
+        animation: 300,
+      });
+      counter++;
+    });
     timeAnchors.forEach((element) => (element.style.pointerEvents = "auto"));
     deleteAnchors.forEach((element) => (element.style.visibility = "initial"));
   } else {
+    let counter = 0;
+    document.querySelectorAll(".list-group").forEach((ul) => {
+      sortable[counter].destroy();
+      counter++;
+    });
     timeAnchors.forEach((element) => (element.style.pointerEvents = "none"));
     deleteAnchors.forEach((element) => (element.style.visibility = "hidden"));
   }
