@@ -5,7 +5,7 @@ const addItems = (thisElement) => {
   if (inputElem.value.trim() != "") {
     newListItem = document.getElementById("sampleListItem").cloneNode(true);
     newListItem.removeAttribute("id");
-    newListItem.children[0].innerText = inputElem.value;
+    newListItem.querySelector("text").innerText = inputElem.value;
     newListItem.setAttribute("text", inputElem.value);
     ulElement = thisElement.parentNode.children[0].appendChild(newListItem);
     inputElem.value = "";
@@ -66,7 +66,7 @@ observer.observe(targetNode, saveConfig);
 const enterLink = (thisElement) => {
   editSwitch = document.getElementById("editSwitch");
   const mainLi = thisElement.closest(".list-group-item");
-  const linkI = thisElement.querySelector("i");
+  const linkI = thisElement.querySelector(".link-element-bi");
   const iClass = linkI.classList;
   if (editSwitch.checked) {
     let link = prompt(
@@ -78,13 +78,13 @@ const enterLink = (thisElement) => {
       alert("invalid link try again");
       return;
     } else if (isUrl(link) && !link.length) {
-      thisElement.setAttribute("link", link);
-      mainLi.setAttribute("link", link);
+      thisElement.setAttribute("link", "https://" + link);
+      mainLi.setAttribute("link", "https://" + link);
       iClass.remove("bi-link-45deg");
       iClass.add("bi-link");
     } else {
       thisElement.setAttribute("link", "https://" + link);
-      mainLi.setAttribute("link", link);
+      mainLi.setAttribute("link", "https://" + link);
       iClass.remove("bi-link-45deg");
       iClass.add("bi-link");
     }
@@ -135,17 +135,19 @@ const enterTime = (thisElement) => {
 const editFunc = (thisElement) => {
   let timeAnchors = document.querySelectorAll(".time-element");
   let deleteAnchors = document.querySelectorAll(".deleteAnchor");
-
+  let liHandle = document.querySelectorAll(".bi-list");
   //for the time button editing
   if (thisElement.checked) {
     let counter = 0;
-    sortable = []
+    sortable = [];
     document.querySelectorAll(".list-group").forEach((ul) => {
       sortable[counter] = new Sortable(ul, {
         animation: 300,
+        handle: ".bi-list",
       });
       counter++;
     });
+    liHandle.forEach((element) => (element.style.display = "initial"));
     timeAnchors.forEach((element) => (element.style.pointerEvents = "auto"));
     deleteAnchors.forEach((element) => (element.style.visibility = "initial"));
   } else {
@@ -154,7 +156,10 @@ const editFunc = (thisElement) => {
       sortable[counter].destroy();
       counter++;
     });
+    liHandle.forEach((element) => (element.style.display = "none"));
     timeAnchors.forEach((element) => (element.style.pointerEvents = "none"));
     deleteAnchors.forEach((element) => (element.style.visibility = "hidden"));
   }
 };
+
+

@@ -15,7 +15,7 @@ days.forEach((day) => {
     item.forEach((li) => {
       newListItem = document.getElementById("sampleListItem").cloneNode(true);
       newListItem.removeAttribute("id");
-      newListItem.children[0].innerText = li.text;
+      newListItem.querySelector("text").innerText = li.text;
       newListItem.setAttribute("text", li.text);
       newListItem.setAttribute("link", li.link);
       newListItem.setAttribute("time", li.time);
@@ -25,5 +25,14 @@ days.forEach((day) => {
       newListItem.querySelector(".link-element").setAttribute("link", li.link);
       document.getElementById(day).appendChild(newListItem);
     });
+  }
+});
+
+
+let linkSpans = document.querySelectorAll(".link-element-bi");
+linkSpans.forEach((elem) => {
+  if (elem.parentElement.getAttribute("link")) {
+    elem.classList.add("bi-link");
+    elem.classList.remove("bi-link-45deg");
   }
 });
