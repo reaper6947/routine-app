@@ -49,6 +49,25 @@ const saveFunc = () => {
 
     localStorage.setItem(ul.getAttribute("id"), JSON.stringify(arr));
   });
+  let list = document.querySelectorAll(".list-group-item");
+  list.forEach((item) => {
+    type = item.getAttribute("type");
+    timeElement = item.querySelector(".time-element");
+    if (type == "Exam") {
+      timeElement.style.backgroundColor = "#DC3545";
+    }
+    if (type == "Viva") {
+      console.log("viva");
+      timeElement.style.backgroundColor = "#6C757D";
+    }
+    if (type == "Quiz") {
+      console.log("quiz");
+      timeElement.style.backgroundColor = "#17A2B8";
+    }
+    if (type == "Regular") {
+      timeElement.style.backgroundColor = "#0C6DFC";
+    }
+  });
 };
 
 const targetNode = document.body;
@@ -121,10 +140,19 @@ const modalFunc = (initiatorBtn) => {
   }
 };
 
+const examType = (initiatorBtn) => {
+  const selectElement = document.getElementById("classTypeSelect");
+  const type = selectElement.value;
+  const mainLi = initiatorBtn.parentNode.parentNode;
+  mainLi.setAttribute("type", type);
+};
 const enterTime = (thisElement) => {
   document
     .getElementById("modalSaveBtn")
     .addEventListener("click", () => modalFunc(thisElement), { once: true });
+  document
+    .getElementById("classTypeSelect")
+    .addEventListener("change", () => examType(thisElement));
   document.getElementById("modalInput").flatpickr({
     enableTime: true,
     noCalendar: true,
@@ -161,5 +189,3 @@ const editFunc = (thisElement) => {
     deleteAnchors.forEach((element) => (element.style.visibility = "hidden"));
   }
 };
-
-

@@ -1,19 +1,30 @@
-<div class="modal fade " tabindex="-1" id="timeModal" aria-labelledby="exampleModalCenterTitle" style="display: none;"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalCenterTitle">pick the time</h5>
+<div class="modal fade " tabindex="-1" id="timeModal" data-bs-backdrop="static"
+  aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">pick the time</h5>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-3">
+          <input type="text" id="modalInput" class="form-control"  aria-label="Default"
+            aria-describedby="inputGroup-sizing-default" required>
+            <select class="form-select" id="classTypeSelect" aria-label="Default select example">
+              <option selected>Type</option>
+              <option value="Exam">Exam</option>
+              <option value="Regular">Regular</option>
+              <option value="Viva">Viva</option>
+              <option value="Quiz">Quiz</option>
+            </select>
         </div>
-        <div class="modal-body">
-          <div class="input-group mb-3">
-            <input type="text" id="modalInput" class="form-control" data-input aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="modalSaveBtn" data-bs-dismiss="modal"  >Save changes</button>
-        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"   id="modalSaveBtn" data-bs-dismiss="modal" >Save changes</button>
       </div>
     </div>
   </div>
+</div>
+
+
